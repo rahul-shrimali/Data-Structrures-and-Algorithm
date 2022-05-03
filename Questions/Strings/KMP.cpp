@@ -6,8 +6,7 @@ int main(){
     string str, pat;
     int n = 3, m = 3;
 
-    vector<vector<vector<int>>> dp(n, vector<vector<int>> (m, vector<int> (m, -1)));
-    
+
 
     cin>>str>>pat;
     int n = str.length(), m = pat.length();
