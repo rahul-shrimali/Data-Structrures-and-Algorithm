@@ -9,10 +9,29 @@ using namespace std;
 
 int binarrSrch_inrotatedArray(int a[], int n, int key){
     int start = 0, i = 1;
-    while(i<n && a[i] > a[i - 1]){
-        i++;
-        start++;
+    //It is O(N) not useful we can do it also in O(log n)
+    // while(i<n && a[i] > a[i - 1]){
+    //     i++;
+    //     start++;
+    // }
+
+    int pos = 0, s =0, e = n-1;
+
+    // O(log n ) way to find start
+    while(s <= e){
+        int mid = s + (e-s)/2;
+        if(mid == 0 || a[mid] < a[mid - 1]){
+            pos = mid;
+            break;
+        }
+        else if(a[mid] > a[e]){
+            s = mid+ 1;
+        }else{
+            e = mid - 1;
+        }
     }
+    start = pos;
+
     start = start%n;
     int end = n + start - 1;
     while(start <= end){
