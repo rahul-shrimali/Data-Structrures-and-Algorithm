@@ -4,43 +4,36 @@ using namespace std;
 
 int main(){
     string str, pat;
-    int n = 3, m = 3;
-
-
-
     cin>>str>>pat;
     int n = str.length(), m = pat.length();
-    vector<int> pi(pat.length(), -1);
+    vector<int> pi(pat.length(), 0);
     int i = 0, j = 1;
     while(j < m){
         if(pat[j] == pat[i]){
-            pi[j] = i;
             i++;
+            pi[j++] = i;
         }else{
-            i = 0;
+            if(i != 0){
+                i = pi[i-1];
+            }else{
+                j++;
+            }
         }
-        j++;
     }
+    
     int idx  =-1;
-    j = -1;
-    for(i =0; i<n; i++){
-    //    cout<<i<<" "<<j<<"\n";
-       bool here = false;
-        if(str[i] == pat[j+1]){
+    j = 0, i = 0;
+    while(i < n){
+        if(str[i] == pat[j]){
+            i++;
             j++;
-            if(j == m - 1){
-                idx = i - j;
+            if(j == m) {
+                idx = i - m ;
                 break;
             }
         }else{
-
-            while(j != -1 && pat[j+1] != str[i]){
-                j = pi[j];
-                here = true;
-            }
-            // i--;
-            if(here) i--;
-    
+            if(j != 0) j = pi[j-1];
+            else i++;
         }
     }
     cout<<idx<<" ";
