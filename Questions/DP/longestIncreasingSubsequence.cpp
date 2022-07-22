@@ -34,12 +34,19 @@ int main(){
         dp[i] = -1;
     }
 
-    int m = INT_MIN;
-    for(int i=n-1; i>=0; i--){
-        m = max(m, lis(a, dp, i));
-    }
+    // int m = INT_MIN;
+    // for(int i=n-1; i>=0; i--){
+    //     m = max(m, lis(a, dp, i));
+    // }
     
+    //nlog n approach
+    vector<int> seq;
+    for(int i =0; i<n; i++){
+        int pos = lower_bound(seq.begin(), seq.end(), a[i]) - seq.begin();
+        if(pos == seq.size()) seq.push_back(a[i]);
+        seq[pos] = a[i];
+    }
 
-    cout<< m;
+    cout<< seq.size();
     return 0;
 }
