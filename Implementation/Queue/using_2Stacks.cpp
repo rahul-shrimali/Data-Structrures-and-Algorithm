@@ -2,8 +2,47 @@
 #include<stack>
 using namespace std;
 
+
+class Stack{
+    public:
+    int data;
+    Stack* next;
+    Stack* top;
+    Stack(int d){
+        data = d;
+        next = NULL;
+        top = NULL;
+    }
+
+    Stack(){
+        top = NULL;
+        next = NULL;
+    }
+    void push(int x){
+        if(top == NULL){
+            top = new Stack(x);
+            return;
+        }
+        Stack* n = new Stack(x);
+        n->next = top;
+        top = n;
+    }
+
+    bool empty(){
+        return top == NULL;
+    }
+
+    int get_top(){
+        return top->data;
+    }
+
+    void pop(){
+        top = top->next;
+    }
+};
+
 class Queue{
-    stack<int> s1 ,s2;
+    Stack s1, s2;
     public :
     void enqueue(int x){
         s1.push(x);
@@ -25,7 +64,7 @@ void Queue :: dequeue(){
     }
     if(s2.empty()){
         while(!s1.empty()){
-            int x = s1.top();
+            int x = s1.get_top();
             s2.push(x);
             s1.pop();
         }
@@ -41,13 +80,13 @@ int Queue :: peek(){
     }
     if(s2.empty()){
         while(!s1.empty()){
-            int x = s1.top();
+            int x = s1.get_top();
             s2.push(x);
             s1.pop();
         }
 
     }
-    int x= s2.top();
+    int x= s2.get_top();
     return x;
 }
 
